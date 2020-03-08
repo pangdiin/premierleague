@@ -16,3 +16,16 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ * Players API route
+ */
+
+Route::group([
+	'namespace' => 'Api'
+], function() {
+	Route::get('/players', 'PlayersController@index');
+	Route::get('/players/{id}', 'PlayersController@show');
+});
+
+
