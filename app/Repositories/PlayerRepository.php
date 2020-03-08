@@ -21,7 +21,13 @@ class PlayerRepository implements PlayerRepositoryInterface
 
 	public function findById($id)
 	{
-		return Player::where('id', $id)->firstOrFail();
+		$player = Player::where('id', $id)->first();
+
+		if ($player) {
+			return $player;
+		}
+
+		return ['error' => "Player does not exist."];
 	}
 
 }
