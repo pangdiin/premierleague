@@ -14,6 +14,7 @@ class ProcessPlayers implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     private $playerRepository;
+    private $url;
 
     /**
      * Create a new job instance.
