@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Jobs\ProcessPlayers;
 
 class Kernel extends ConsoleKernel
 {
@@ -24,7 +25,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('fetch:players')->weekly();
+        // $schedule->command('fetch:players')->weekly();
+
+        $schedule->job(new ProcessPlayers)
+            ->timezone('Asia/Manila')
+            ->weekly()
+            ->mondays()
+            ->at('8:00')
+            ->onOneServer();
     }
 
     /**
