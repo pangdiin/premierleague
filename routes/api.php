@@ -25,6 +25,7 @@ Route::group([
 	'namespace' => 'Api'
 ], function() {
 	Route::get('/players', 'PlayersController@index');
+	Route::post('/players', 'PlayersController@store');
 	Route::get('/players/{id}', 'PlayersController@show');
 });
 

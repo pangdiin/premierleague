@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\PlayerRepositoryInterface;
+use App\Player;
 
 class PlayersController extends Controller
 {
@@ -25,6 +26,18 @@ class PlayersController extends Controller
         $players = $this->playerRepository->all();
 
         return $players;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $player = $this->playerRepository->create($request->all());
+
+        return response()->json($player, 200);
     }
 
     /**

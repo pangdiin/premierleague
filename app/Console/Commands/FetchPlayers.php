@@ -51,9 +51,7 @@ class FetchPlayers extends Command
 
             $data = json_decode($string);
 
-            collect($data->elements)->each(function($player) {
-                $this->create($player);
-            });
+            $this->handlePlayers($data);
 
         } else { // xml
 
@@ -61,14 +59,27 @@ class FetchPlayers extends Command
 
             $json = json_encode($xml);
 
-            $array = json_decode($json, TRUE);
+            $data = json_decode($json, TRUE);
+            
+            $this->handlePlayers($data);
 
-            collect($array->elements)->each(function($player) {
+        }
+    }
+
+    private function handlePlayers($data)
+    {
+        //store minimum of 100 records
+        if (count($data->elements) >= 100) {
+            //loop through players and store in database
+            collect($data->elements)->each(function($player) {
                 $this->create($player);
             });
         }
     }
 
+    /**
+     * Store players in db
+     */
     private function create($data)
     {
         $player = new Player;
@@ -88,6 +99,9 @@ class FetchPlayers extends Command
         $player->save();
     }
 
+    /**
+     * Check if string is json
+     */
     private function isJson($string)
     {
         $decoded = json_decode($string);

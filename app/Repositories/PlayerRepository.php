@@ -19,6 +19,27 @@ class PlayerRepository implements PlayerRepositoryInterface
 		return $players;
 	}
 
+	public function create(array $data)
+	{
+		$player = Player::create([
+            'first_name'    => $data['first_name'],
+            'second_name'   => $data['second_name'],
+            'form'          => $data['form'],
+            'total_points'  => $data['total_points'],
+            'influence'     => $data['influence'],
+            'creativity'    => $data['creativity'],
+            'threat'        => $data['threat'],
+            'ict_index'     => $data['ict_index'],
+            'now_cost'      => $data['now_cost'],
+            'points_per_game' => $data['points_per_game'],
+            'status'        => $data['status'],
+            'team'          => $data['team'],
+            'team_code'     => $data['team_code'],
+        ]);
+
+		return $player;
+	}
+
 	public function findById($id)
 	{
 		$player = Player::where('id', $id)->first();
